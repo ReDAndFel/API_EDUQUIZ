@@ -1,6 +1,7 @@
 package uni.quindio.eduquizsolutions.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "HORARIOS")
 public class Horarios implements Serializable {
