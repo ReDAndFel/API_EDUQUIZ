@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import uni.quindio.eduquizsolutions.entities.UnidadesEstudios;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface UnidadesEstudiosRepo extends JpaRepository<UnidadesEstudios, Integer> {
+public interface UnidadesEstudiosRepo extends JpaRepository<UnidadesEstudios, Long> {
 
 }

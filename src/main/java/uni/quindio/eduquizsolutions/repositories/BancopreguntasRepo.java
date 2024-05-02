@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import uni.quindio.eduquizsolutions.entities.Bancopreguntas;
 
 @Repository
-public interface BancopreguntasRepo extends JpaRepository<Bancopreguntas, Integer> {
+public interface BancopreguntasRepo extends JpaRepository<Bancopreguntas, Long> {
 
 }

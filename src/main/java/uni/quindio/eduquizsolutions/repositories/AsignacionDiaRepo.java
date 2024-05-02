@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import uni.quindio.eduquizsolutions.entities.AsignacionDias;
 @Repository
-public interface AsignacionDiaRepo extends JpaRepository<AsignacionDias, Integer> {
+public interface AsignacionDiaRepo extends JpaRepository<AsignacionDias, Long> {
 
 }

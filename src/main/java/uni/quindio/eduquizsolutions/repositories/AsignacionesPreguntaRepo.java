@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import uni.quindio.eduquizsolutions.entities.AsignacionesPreguntas;
 
 @Repository
-public interface AsignacionesPreguntaRepo extends JpaRepository<AsignacionesPreguntas, Integer> {
+public interface AsignacionesPreguntaRepo extends JpaRepository<AsignacionesPreguntas, Long> {
 
 }

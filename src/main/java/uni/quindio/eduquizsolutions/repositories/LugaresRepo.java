@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import uni.quindio.eduquizsolutions.entities.Lugares;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface LugaresRepo extends JpaRepository<Lugares, Integer> {
+public interface LugaresRepo extends JpaRepository<Lugares, Long> {
 
 }

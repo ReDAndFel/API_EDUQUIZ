@@ -1,6 +1,7 @@
 package uni.quindio.eduquizsolutions.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "PREGUNTAS")
 public class Preguntas implements Serializable {

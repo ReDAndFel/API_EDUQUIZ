@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import uni.quindio.eduquizsolutions.entities.Docentes;
 @Repository
-public interface DocentesRepo extends JpaRepository<Docentes, Integer> {
+public interface DocentesRepo extends JpaRepository<Docentes, Long> {
 
 }
