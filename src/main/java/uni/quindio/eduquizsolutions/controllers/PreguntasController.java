@@ -29,70 +29,72 @@ import org.springframework.web.bind.annotation.PathVariable;
 @CrossOrigin("*")
 public class PreguntasController {
 
-    @Autowired
-    PreguntasRepo preguntasRepo;
+        @Autowired
+        PreguntasRepo preguntasRepo;
 
-    @Autowired
-    TemasRepo temasRepo;
+        @Autowired
+        TemasRepo temasRepo;
 
-    @Autowired
-    EstadosRepo estadosRepo;
+        @Autowired
+        EstadosRepo estadosRepo;
 
-    @Autowired
-    TiposPreguntasRepo tiposPreguntasRepo;
+        @Autowired
+        TiposPreguntasRepo tiposPreguntasRepo;
 
-    @GetMapping("/preguntas")
-    public ResponseEntity<MessageDTO> getAllAnswers() {
-        return ResponseEntity.status(HttpStatus.OK).body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findAll()));
-    }
+        @GetMapping("/preguntas")
+        public ResponseEntity<MessageDTO> getAllAnswers() {
+                return ResponseEntity.status(HttpStatus.OK)
+                                .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findAll()));
+        }
 
-    @PostMapping("/preguntas")
-    public ResponseEntity<MessageDTO> createQuestion(@RequestBody PreguntasDTO preguntasDTO) {
-        TiposPreguntas tiposPreguntas = tiposPreguntasRepo
-                .getReferenceById(preguntasDTO.getIdTipoPregunta());
+        @PostMapping("/preguntas")
+        public ResponseEntity<MessageDTO> createQuestion(@RequestBody PreguntasDTO preguntasDTO) {
+                TiposPreguntas tiposPreguntas = tiposPreguntasRepo
+                                .getReferenceById(preguntasDTO.getIdTipoPregunta());
 
-        Estados estado = estadosRepo.getReferenceById(preguntasDTO.getIdEstado());
+                Estados estado = estadosRepo.getReferenceById(preguntasDTO.getIdEstado());
 
-        Temas tema = temasRepo.getReferenceById(preguntasDTO.getIdTema());
+                Temas tema = temasRepo.getReferenceById(preguntasDTO.getIdTema());
 
-        Preguntas pregunta = new Preguntas(
-                preguntasDTO.getId(),
-                preguntasDTO.getEnunciado(),
-                tema,
-                estado,
-                tiposPreguntas);
+                Preguntas pregunta = new Preguntas(
+                                null,
+                                preguntasDTO.getEnunciado(),
+                                tema,
+                                estado,
+                                tiposPreguntas);
 
-        preguntasRepo.save(pregunta);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new MessageDTO(HttpStatus.CREATED, false, "Pregunta creada correctamente"));
-    }
+                preguntasRepo.save(pregunta);
+                return ResponseEntity.status(HttpStatus.CREATED)
+                                .body(new MessageDTO(HttpStatus.CREATED, false, "Pregunta creada correctamente"));
+        }
 
-    @PutMapping("/preguntas")
-    public ResponseEntity<MessageDTO> updateQuestion(@PathVariable long id, @RequestBody PreguntasDTO preguntasDTO) {
+        @PutMapping("/preguntas/{id}")
+        public ResponseEntity<MessageDTO> updateQuestion(@PathVariable long id,
+                        @RequestBody PreguntasDTO preguntasDTO) {
 
-        Preguntas pregunta = preguntasRepo.findById(id).get();
+                Preguntas pregunta = preguntasRepo.findById(id).get();
 
-        TiposPreguntas tiposPreguntas = tiposPreguntasRepo
-                .getReferenceById(preguntasDTO.getIdTipoPregunta());
+                TiposPreguntas tiposPreguntas = tiposPreguntasRepo
+                                .getReferenceById(preguntasDTO.getIdTipoPregunta());
 
-        Estados estado = estadosRepo.getReferenceById(preguntasDTO.getIdEstado());
+                Estados estado = estadosRepo.getReferenceById(preguntasDTO.getIdEstado());
 
-        Temas tema = temasRepo.getReferenceById(preguntasDTO.getIdTema());
+                Temas tema = temasRepo.getReferenceById(preguntasDTO.getIdTema());
 
-        pregunta.setEnunciado(preguntasDTO.getEnunciado());
-        pregunta.setIdestado(estado);
-        pregunta.setIdtema(tema);
-        pregunta.setIdtipopregunta(tiposPreguntas);
+                pregunta.setEnunciado(preguntasDTO.getEnunciado());
+                pregunta.setIdestado(estado);
+                pregunta.setIdtema(tema);
+                pregunta.setIdtipopregunta(tiposPreguntas);
 
-        preguntasRepo.save(pregunta);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(new MessageDTO(HttpStatus.OK, false, "Pregunta actualizada correctamente"));
-    }
+                preguntasRepo.save(pregunta);
+                return ResponseEntity.status(HttpStatus.OK)
+                                .body(new MessageDTO(HttpStatus.OK, false, "Pregunta actualizada correctamente"));
+        }
 
-    @DeleteMapping("/preguntas")
-    public ResponseEntity<MessageDTO> deleteQuestion(@PathVariable long id) {
-        preguntasRepo.deleteById(id);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new MessageDTO(HttpStatus.CREATED, false, "Pregunta eliminada correctamente"));
-    }
+        @DeleteMapping("/preguntas/{id}")
+        public ResponseEntity<MessageDTO> deleteQuestion(@PathVariable long id) {
+                preguntasRepo.deleteById(id);
+                return ResponseEntity.status(HttpStatus.CREATED)
+                                .body(new MessageDTO(HttpStatus.CREATED, false, "Pregunta eliminada correctamente"));
+        }
 }

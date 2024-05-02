@@ -16,6 +16,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "PREGUNTAS")
 public class Preguntas implements Serializable {
+
     @Id
     @Column(name = "IDPREGUNTA", nullable = false)
     private Long id;
