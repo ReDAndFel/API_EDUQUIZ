@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "3fb40251-af6f-4c33-8b4f-e1b940052c4f",
+		"name": "API_EDUQUIZ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25028597"
+	},
+	"item": [
+		{
+			"name": "getEstudiantes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8084/estudiantes",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"estudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8084/dias",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"dias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDocentes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8084/docentes",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"docentes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDiaById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8084/dias/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"dias",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHorarioById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8084/dias/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"dias",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPreguntas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8084/preguntas",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"preguntas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRespuestaById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8084/respuestas/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"respuestas",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getExamenes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8084/examenes",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"examenes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getExamenById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8084/examenes/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"examenes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
