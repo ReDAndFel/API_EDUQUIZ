@@ -3,19 +3,16 @@ package uni.quindio.eduquizsolutions.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "DOCENTES")
-public class Docentes implements Serializable {
+@Table(name = "ESTUDIANTES")
+public class Estudiante {
     @Id
-    @Column(name = "IDDOCENTE", nullable = false)
+    @Column(name = "IDESTUDIANTE", nullable = false)
     private Long id;
 
     @Column(name = "NOMBRE", nullable = false, length = 40)
@@ -27,8 +24,8 @@ public class Docentes implements Serializable {
     @Column(name = "USUARIO", nullable = false, length = 40)
     private String usuario;
 
-    @Column(name = "CORREO_ELECTRONICO", nullable = false, length = 40)
-    private String correoElectronico;
+    @Column(name = "EMAIL", nullable = false, length = 40)
+    private String email;
 
     @Column(name = "PASSWORD", nullable = false, length = 40)
     private String password;
@@ -36,12 +33,9 @@ public class Docentes implements Serializable {
     @Column(name = "TELEFONO")
     private Long telefono;
 
-    @Column(name = "DIRECCION", length = 40)
-    private String direccion;
-
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "IDINSTITUCION", nullable = false)
-    private Instituciones idinstitucion;
+    @JoinColumn(name = "IDCURSO", nullable = false)
+    private Curso idcurso;
 
 }

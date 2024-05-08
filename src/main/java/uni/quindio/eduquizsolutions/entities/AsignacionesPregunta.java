@@ -3,29 +3,26 @@ package uni.quindio.eduquizsolutions.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "LUGARES")
-public class Lugares implements Serializable {
+@Table(name = "ASIGNACIONES_PREGUNTAS")
+public class AsignacionesPregunta {
     @Id
-    @Column(name = "IDLUGAR", nullable = false)
+    @Column(name = "IDASIGNACIONPREGUNTA", nullable = false)
     private Long id;
 
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "IDEDIFICIO", nullable = false)
-    private Edificios idedificio;
+    @JoinColumn(name = "IDASIGNACIONESTUDIANTE", nullable = false)
+    private AsignacionesEstudiante idasignacionestudiante;
 
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "IDSALON", nullable = false)
-    private Salones idsalon;
+    @JoinColumn(name = "IDBANCO", nullable = false)
+    private Bancopregunta idbanco;
 
 }

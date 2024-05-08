@@ -6,14 +6,13 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "EXAMENES")
-public class Examenes implements Serializable {
+public class Examen {
     @Id
     @Column(name = "IDEXAMENEN", nullable = false)
     private Long id;
@@ -21,13 +20,13 @@ public class Examenes implements Serializable {
     @Column(name = "TITULO", nullable = false, length = 80)
     private String titulo;
 
-    @Column(name = "FECHAYHORACREACION", nullable = false)
-    private LocalDate fechayhoracreacion;
+    @Column(name = "FECHA", nullable = false)
+    private LocalDate fecha;
 
     @Column(name = "DURACIONEXAMEN", nullable = false)
     private Long duracionexamen;
 
-    @Column(name = "CANTIDADPREGUNTAS")
+    @Column(name = "CANTIDADPREGUNTAS", nullable = false)
     private Long cantidadpreguntas;
 
     @Column(name = "CALIFICACION", nullable = false)
@@ -36,11 +35,19 @@ public class Examenes implements Serializable {
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "IDHORARIO", nullable = false)
-    private Horarios idhorario;
+    private Horario idhorario;
 
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "IDCURSO", nullable = false)
-    private Cursos idcurso;
+    private Curso idcurso;
+
+    @Column(name = "CANTIDADPREGUNTASPOREXAMEN", nullable = false)
+    private Long cantidadpreguntasporexamen;
+
+    @ManyToOne()
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "IDTEMA")
+    private Tema idtema;
 
 }

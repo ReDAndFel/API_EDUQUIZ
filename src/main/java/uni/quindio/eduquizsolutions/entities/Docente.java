@@ -3,19 +3,16 @@ package uni.quindio.eduquizsolutions.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "ESTUDIANTES")
-public class Estudiantes implements Serializable {
+@Table(name = "DOCENTES")
+public class Docente {
     @Id
-    @Column(name = "IDESTUDIANTE", nullable = false)
+    @Column(name = "IDDOCENTE", nullable = false)
     private Long id;
 
     @Column(name = "NOMBRE", nullable = false, length = 40)
@@ -27,8 +24,8 @@ public class Estudiantes implements Serializable {
     @Column(name = "USUARIO", nullable = false, length = 40)
     private String usuario;
 
-    @Column(name = "EMAIL", nullable = false, length = 40)
-    private String email;
+    @Column(name = "CORREO_ELECTRONICO", nullable = false, length = 40)
+    private String correoElectronico;
 
     @Column(name = "PASSWORD", nullable = false, length = 40)
     private String password;
@@ -36,14 +33,12 @@ public class Estudiantes implements Serializable {
     @Column(name = "TELEFONO")
     private Long telefono;
 
-    @ManyToOne(optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "IDCURSO", nullable = false)
-    private Cursos idcurso;
+    @Column(name = "DIRECCION", length = 40)
+    private String direccion;
 
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "IDGRUPO", nullable = false)
-    private Grupos idgrupo;
+    @JoinColumn(name = "IDINSTITUCION", nullable = false)
+    private Institucion idinstitucion;
 
 }

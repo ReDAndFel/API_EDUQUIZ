@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import uni.quindio.eduquizsolutions.DTOS.MessageDTO;
 import uni.quindio.eduquizsolutions.DTOS.PreguntasDTO;
 import uni.quindio.eduquizsolutions.DTOS.RespuestasDTO;
-import uni.quindio.eduquizsolutions.entities.Estados;
-import uni.quindio.eduquizsolutions.entities.Preguntas;
-import uni.quindio.eduquizsolutions.entities.Respuestas;
-import uni.quindio.eduquizsolutions.entities.Temas;
-import uni.quindio.eduquizsolutions.entities.TiposPreguntas;
+import uni.quindio.eduquizsolutions.entities.Estado;
+import uni.quindio.eduquizsolutions.entities.Pregunta;
+import uni.quindio.eduquizsolutions.entities.Respuesta;
+import uni.quindio.eduquizsolutions.entities.Tema;
+import uni.quindio.eduquizsolutions.entities.TiposPregunta;
 import uni.quindio.eduquizsolutions.repositories.DocentesRepo;
 import uni.quindio.eduquizsolutions.repositories.EstadosRepo;
 import uni.quindio.eduquizsolutions.repositories.PreguntasRepo;
@@ -47,9 +47,9 @@ public class RespuestasController {
         @PostMapping("/respuestas")
         public ResponseEntity<MessageDTO> createAnswer(@RequestBody RespuestasDTO respuestasDTO) {
 
-                Preguntas pregunta = preguntasRepo.findById(respuestasDTO.getIdPregunta()).get();
+                Pregunta pregunta = preguntasRepo.findById(respuestasDTO.getIdPregunta()).get();
 
-                Respuestas respuesta = new Respuestas(
+                Respuesta respuesta = new Respuesta(
                                 null,
                                 respuestasDTO.getOpcionrespuesta(),
                                 respuestasDTO.getCorrecta(),
@@ -64,9 +64,9 @@ public class RespuestasController {
         public ResponseEntity<MessageDTO> updateAnswer(@PathVariable long id,
                         @RequestBody RespuestasDTO respuestasDTO) {
 
-                Preguntas pregunta = preguntasRepo.findById(respuestasDTO.getIdPregunta()).get();
+                Pregunta pregunta = preguntasRepo.findById(respuestasDTO.getIdPregunta()).get();
 
-                Respuestas respuesta = respuestasRepo.findById(id).get();
+                Respuesta respuesta = respuestasRepo.findById(id).get();
 
                 respuesta.setCorrecta(respuestasDTO.getCorrecta());
                 respuesta.setIdpreguntas(pregunta);

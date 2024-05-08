@@ -1,7 +1,5 @@
 package uni.quindio.eduquizsolutions.entities;
 
-import java.io.Serializable;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,10 +10,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "SALONES")
-public class Salones implements Serializable {
+@Table(name = "ESTADOS")
+public class Estado {
     @Id
-    @Column(name = "IDSALON", nullable = false)
+    @Column(name = "IDESTADO", nullable = false)
     private Long id;
 
     @Column(name = "DESCRIPCION", length = 40)

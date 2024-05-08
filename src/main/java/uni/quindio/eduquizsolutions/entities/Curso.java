@@ -3,9 +3,6 @@ package uni.quindio.eduquizsolutions.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -13,7 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Setter
 @Entity
 @Table(name = "CURSOS")
-public class Cursos implements Serializable {
+public class Curso {
     @Id
     @Column(name = "IDCURSO", nullable = false)
     private Long id;
@@ -27,11 +24,11 @@ public class Cursos implements Serializable {
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "IDDOCENTE", nullable = false)
-    private Docentes iddocente;
+    private Docente iddocente;
 
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "IDMATERIA", nullable = false)
-    private Materias idmateria;
+    private Materia idmateria;
 
 }

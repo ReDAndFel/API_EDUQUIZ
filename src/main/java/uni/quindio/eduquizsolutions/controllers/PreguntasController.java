@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uni.quindio.eduquizsolutions.DTOS.MessageDTO;
 import uni.quindio.eduquizsolutions.DTOS.PreguntasDTO;
-import uni.quindio.eduquizsolutions.entities.Estados;
-import uni.quindio.eduquizsolutions.entities.Preguntas;
-import uni.quindio.eduquizsolutions.entities.Temas;
-import uni.quindio.eduquizsolutions.entities.TiposPreguntas;
+import uni.quindio.eduquizsolutions.entities.Estado;
+import uni.quindio.eduquizsolutions.entities.Pregunta;
+import uni.quindio.eduquizsolutions.entities.Tema;
+import uni.quindio.eduquizsolutions.entities.TiposPregunta;
 import uni.quindio.eduquizsolutions.repositories.DocentesRepo;
 import uni.quindio.eduquizsolutions.repositories.EstadosRepo;
 import uni.quindio.eduquizsolutions.repositories.PreguntasRepo;
@@ -42,21 +42,21 @@ public class PreguntasController {
         TiposPreguntasRepo tiposPreguntasRepo;
 
         @GetMapping("/preguntas")
-        public ResponseEntity<MessageDTO> getAllAnswers() {
+        public ResponseEntity<MessageDTO> getAllQuestions() {
                 return ResponseEntity.status(HttpStatus.OK)
                                 .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findAll()));
         }
 
         @PostMapping("/preguntas")
         public ResponseEntity<MessageDTO> createQuestion(@RequestBody PreguntasDTO preguntasDTO) {
-                TiposPreguntas tiposPreguntas = tiposPreguntasRepo
+                TiposPregunta tiposPreguntas = tiposPreguntasRepo
                                 .getReferenceById(preguntasDTO.getIdTipoPregunta());
 
-                Estados estado = estadosRepo.getReferenceById(preguntasDTO.getIdEstado());
+                Estado estado = estadosRepo.getReferenceById(preguntasDTO.getIdEstado());
 
-                Temas tema = temasRepo.getReferenceById(preguntasDTO.getIdTema());
+                Tema tema = temasRepo.getReferenceById(preguntasDTO.getIdTema());
 
-                Preguntas pregunta = new Preguntas(
+                Pregunta pregunta = new Pregunta(
                                 null,
                                 preguntasDTO.getEnunciado(),
                                 tema,
@@ -72,14 +72,14 @@ public class PreguntasController {
         public ResponseEntity<MessageDTO> updateQuestion(@PathVariable long id,
                         @RequestBody PreguntasDTO preguntasDTO) {
 
-                Preguntas pregunta = preguntasRepo.findById(id).get();
+                Pregunta pregunta = preguntasRepo.findById(id).get();
 
-                TiposPreguntas tiposPreguntas = tiposPreguntasRepo
+                TiposPregunta tiposPreguntas = tiposPreguntasRepo
                                 .getReferenceById(preguntasDTO.getIdTipoPregunta());
 
-                Estados estado = estadosRepo.getReferenceById(preguntasDTO.getIdEstado());
+                Estado estado = estadosRepo.getReferenceById(preguntasDTO.getIdEstado());
 
-                Temas tema = temasRepo.getReferenceById(preguntasDTO.getIdTema());
+                Tema tema = temasRepo.getReferenceById(preguntasDTO.getIdTema());
 
                 pregunta.setEnunciado(preguntasDTO.getEnunciado());
                 pregunta.setIdestado(estado);
