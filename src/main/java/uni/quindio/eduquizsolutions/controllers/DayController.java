@@ -7,26 +7,29 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import uni.quindio.eduquizsolutions.DTOS.MessageDTO;
-import uni.quindio.eduquizsolutions.repositories.ExamenesRepo;
+import uni.quindio.eduquizsolutions.repositories.DiaRepo;
+import uni.quindio.eduquizsolutions.repositories.EstudiantesRepo;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@RequestMapping("/dias")
 @CrossOrigin("*")
-public class ExamenController {
+public class DayController {
 
     @Autowired
-    ExamenesRepo examenesRepo;
+    DiaRepo diaRepo;
 
-    @GetMapping("/examenes")
+    @GetMapping("/")
     public ResponseEntity<MessageDTO> getAllDays() {
-        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,examenesRepo.findAll()));
+        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,diaRepo.findAll()));
     }
 
-    @GetMapping("/examenes/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<MessageDTO> getDayById(@PathVariable long id) {
-        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,examenesRepo.findById(id).get()));
+        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,diaRepo.findById(id).get()));
     }
 
 }

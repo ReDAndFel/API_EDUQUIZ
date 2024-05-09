@@ -31,12 +31,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
+@RequestMapping("/horarios")
 @CrossOrigin("*")
-public class HorarioController {
+public class ScheduleController {
 
         @Autowired
         HorariosRepo horariosRepo;
@@ -44,7 +46,7 @@ public class HorarioController {
         @Autowired
         DiaRepo diaRepo;
 
-        @GetMapping("/horario/{id}")
+        @GetMapping("/{id}")
         public ResponseEntity<MessageDTO> getScheduleById(@PathVariable long id) {
                 return ResponseEntity.status(HttpStatus.OK)
                                 .body(new MessageDTO(HttpStatus.OK, false, horariosRepo.findById(id).get()));

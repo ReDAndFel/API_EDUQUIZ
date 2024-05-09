@@ -22,12 +22,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
+@RequestMapping("/preguntas")
 @CrossOrigin("*")
-public class PreguntasController {
+public class QuestionController {
 
         @Autowired
         PreguntasRepo preguntasRepo;
@@ -41,13 +43,13 @@ public class PreguntasController {
         @Autowired
         TiposPreguntasRepo tiposPreguntasRepo;
 
-        @GetMapping("/preguntas")
+        @GetMapping("/")
         public ResponseEntity<MessageDTO> getAllQuestions() {
                 return ResponseEntity.status(HttpStatus.OK)
                                 .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findAll()));
         }
 
-        @PostMapping("/preguntas")
+        @PostMapping("/")
         public ResponseEntity<MessageDTO> createQuestion(@RequestBody PreguntasDTO preguntasDTO) {
                 TiposPregunta tiposPreguntas = tiposPreguntasRepo
                                 .getReferenceById(preguntasDTO.getIdTipoPregunta());
@@ -68,7 +70,7 @@ public class PreguntasController {
                                 .body(new MessageDTO(HttpStatus.CREATED, false, "Pregunta creada correctamente"));
         }
 
-        @PutMapping("/preguntas/{id}")
+        @PutMapping("/{id}")
         public ResponseEntity<MessageDTO> updateQuestion(@PathVariable long id,
                         @RequestBody PreguntasDTO preguntasDTO) {
 
@@ -91,7 +93,7 @@ public class PreguntasController {
                                 .body(new MessageDTO(HttpStatus.OK, false, "Pregunta actualizada correctamente"));
         }
 
-        @DeleteMapping("/preguntas/{id}")
+        @DeleteMapping("/{id}")
         public ResponseEntity<MessageDTO> deleteQuestion(@PathVariable long id) {
                 preguntasRepo.deleteById(id);
                 return ResponseEntity.status(HttpStatus.CREATED)

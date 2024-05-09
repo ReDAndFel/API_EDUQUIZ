@@ -9,15 +9,17 @@ import uni.quindio.eduquizsolutions.DTOS.MessageDTO;
 import uni.quindio.eduquizsolutions.repositories.DocentesRepo;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@RequestMapping("/docentes")
 @CrossOrigin("*")
-public class DocentesController {
+public class TeacherController {
 
     @Autowired
     DocentesRepo docentesRepo;
 
-    @GetMapping("/docentes")
+    @GetMapping("/")
     public ResponseEntity<MessageDTO> getAllTeachers() {
         return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,docentesRepo.findAll()));
     }
