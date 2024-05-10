@@ -16,7 +16,7 @@ import uni.quindio.eduquizsolutions.repositories.CursosRepo;
 
 @RestController
 @RequestMapping("/cursos")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class CourseController {
 
     @Autowired

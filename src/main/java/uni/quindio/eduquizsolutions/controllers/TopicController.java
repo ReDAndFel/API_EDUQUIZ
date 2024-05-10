@@ -16,7 +16,7 @@ import uni.quindio.eduquizsolutions.repositories.TemasRepo;
 
 @RestController
 @RequestMapping("/temas")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class TopicController {
 
     @Autowired

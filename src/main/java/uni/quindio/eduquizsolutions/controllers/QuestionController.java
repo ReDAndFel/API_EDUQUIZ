@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/preguntas")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class QuestionController {
 
         @Autowired

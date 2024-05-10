@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import uni.quindio.eduquizsolutions.DTOS.MessageDTO;
 import uni.quindio.eduquizsolutions.repositories.InstitucionesRepo;
-import uni.quindio.eduquizsolutions.repositories.TemasRepo;
-
 
 
 @RestController
 @RequestMapping("/instituciones")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class InstitutionController {
 
     @Autowired

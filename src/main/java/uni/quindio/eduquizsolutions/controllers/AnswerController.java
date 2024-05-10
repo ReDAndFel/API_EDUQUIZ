@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/respuestas")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class AnswerController {
 
         @Autowired
