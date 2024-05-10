@@ -9,10 +9,12 @@ import java.time.LocalDate;
 public class ExamenesDTO {
     private Long id;
     private String titulo;
-    private LocalDate fechayhoracreacion;
-    private Long duracionexamen;
-    private Long cantidadpreguntas;
+    private LocalDate fecha;
+    private Long duracion;
+    private Long cantidadPreguntas;
+    private Long cantidadPreguntasXEstudiante;
     private Double calificacion;
-    private Long idHorario;
+    private LocalDate horaInicio;
+    private LocalDate horaFin;
     private Long idCurso;
 }

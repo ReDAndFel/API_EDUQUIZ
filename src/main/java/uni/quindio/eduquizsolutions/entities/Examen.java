@@ -32,10 +32,11 @@ public class Examen {
     @Column(name = "CALIFICACION", nullable = false)
     private Double calificacion;
 
-    @ManyToOne(optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "IDHORARIO", nullable = false)
-    private Horario idhorario;
+    @Column(name = "HORAINICIO", nullable = false)
+    private LocalDate horaInicio;
+
+    @Column(name = "HORAFIN", nullable = false)
+    private LocalDate horaFin;
 
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
