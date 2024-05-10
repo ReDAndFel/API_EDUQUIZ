@@ -12,14 +12,12 @@ import uni.quindio.eduquizsolutions.entities.Estado;
 import uni.quindio.eduquizsolutions.entities.Pregunta;
 import uni.quindio.eduquizsolutions.entities.Tema;
 import uni.quindio.eduquizsolutions.entities.TiposPregunta;
-import uni.quindio.eduquizsolutions.repositories.DocentesRepo;
 import uni.quindio.eduquizsolutions.repositories.EstadosRepo;
 import uni.quindio.eduquizsolutions.repositories.PreguntasRepo;
 import uni.quindio.eduquizsolutions.repositories.TemasRepo;
 import uni.quindio.eduquizsolutions.repositories.TiposPreguntasRepo;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,12 +56,7 @@ public class QuestionController {
 
                 Tema tema = temasRepo.getReferenceById(preguntasDTO.getIdTema());
 
-                Pregunta pregunta = new Pregunta(
-                                null,
-                                preguntasDTO.getEnunciado(),
-                                tema,
-                                estado,
-                                tiposPreguntas);
+                Pregunta pregunta = new Pregunta();
 
                 preguntasRepo.save(pregunta);
                 return ResponseEntity.status(HttpStatus.CREATED)

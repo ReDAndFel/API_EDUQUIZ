@@ -22,13 +22,18 @@ public class ExamController {
     ExamenesRepo examenesRepo;
 
     @GetMapping("/")
-    public ResponseEntity<MessageDTO> getAllDays() {
+    public ResponseEntity<MessageDTO> getAllExams() {
         return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,examenesRepo.findAll()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MessageDTO> getDayById(@PathVariable long id) {
+    public ResponseEntity<MessageDTO> getExamById(@PathVariable long id) {
         return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,examenesRepo.findById(id).get()));
+    }
+
+    @GetMapping("/estudiante/{idStudent}")
+    public ResponseEntity<MessageDTO> getExamByIdStudent(@PathVariable long idStudent) {
+        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,examenesRepo.findExamByIdStudent(idStudent)));
     }
 
 }

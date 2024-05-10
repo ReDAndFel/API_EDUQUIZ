@@ -10,6 +10,7 @@ import uni.quindio.eduquizsolutions.DTOS.MessageDTO;
 import uni.quindio.eduquizsolutions.repositories.EstudiantesRepo;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
@@ -23,6 +24,11 @@ public class StudentController {
     @GetMapping("/")
     public ResponseEntity<MessageDTO> getAllEstudents() {
         return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,estudiantesRepo.findAll()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MessageDTO> getStudentById(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,estudiantesRepo.findById(id)));
     }
 
 }
