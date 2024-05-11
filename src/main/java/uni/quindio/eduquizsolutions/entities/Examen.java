@@ -46,6 +46,12 @@ public class Examen {
     @Column(name = "CANTIDADPREGUNTASPOREXAMEN", nullable = false)
     private Long cantidadpreguntasporexamen;
 
+    @Column(name = "NOTAPARAAPROBAR", nullable = false)
+    private Double notaParaAprobar;
+
+    @Column(name = "ESTADO", nullable = false, length = 10)
+    private String estado;
+
     @ManyToOne()
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "IDTEMA")

@@ -1,5 +1,7 @@
 package uni.quindio.eduquizsolutions.DTOS;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +13,5 @@ public class PreguntasDTO {
     private Long idTema;
     private Long idEstado;
     private Long idTipoPregunta;
+    private List<RespuestasDTO> respuestas;
 }

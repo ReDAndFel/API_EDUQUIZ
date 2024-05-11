@@ -3,6 +3,8 @@ package uni.quindio.eduquizsolutions.DTOS;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -16,5 +18,8 @@ public class ExamenesDTO {
     private Double calificacion;
     private LocalDate horaInicio;
     private LocalDate horaFin;
+    private Double notaParaAprobar;
+    private String estado;
     private Long idCurso;
+    List<PreguntasDTO> preguntas;
 }
