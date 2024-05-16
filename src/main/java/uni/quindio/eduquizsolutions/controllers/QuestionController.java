@@ -47,6 +47,20 @@ public class QuestionController {
                                 .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findAll()));
         }
 
+        @GetMapping("/examen/{idExamen}")
+        public ResponseEntity<MessageDTO> getQuestionByExamId(@PathVariable long idExamen) {
+                return ResponseEntity.status(HttpStatus.OK)
+                                .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findPreguntasByIdExamen(idExamen)));
+        }
+
+        @GetMapping("/examen/{idExamen}/estudiante/{idEstudiante}")
+        public ResponseEntity<MessageDTO> getQuestionByExamIdAndIdStudent(@PathVariable long idExamen,@PathVariable long idEstudiante) {
+                return ResponseEntity.status(HttpStatus.OK)
+                                .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findPreguntasAsignadasByIdExamenAndIdEstudiante(idExamen, idEstudiante)));
+        }
+
+        
+
         @PostMapping("/")
         public ResponseEntity<MessageDTO> createQuestion(@RequestBody PreguntasDTO preguntasDTO) {
                 TiposPregunta tiposPreguntas = tiposPreguntasRepo

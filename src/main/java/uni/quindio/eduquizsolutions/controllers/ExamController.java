@@ -23,17 +23,18 @@ public class ExamController {
 
     @GetMapping("/")
     public ResponseEntity<MessageDTO> getAllExams() {
-        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,examenesRepo.findAll()));
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDTO(HttpStatus.OK, false, examenesRepo.findAll()));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MessageDTO> getExamById(@PathVariable long id) {
-        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,examenesRepo.findById(id).get()));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new MessageDTO(HttpStatus.OK, false, examenesRepo.findById(id).get()));
     }
 
     @GetMapping("/estudiante/{idStudent}")
     public ResponseEntity<MessageDTO> getExamByIdStudent(@PathVariable long idStudent) {
-        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,examenesRepo.findExamByIdStudent(idStudent)));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new MessageDTO(HttpStatus.OK, false, examenesRepo.findExamByIdStudent(idStudent)));
     }
-
 }

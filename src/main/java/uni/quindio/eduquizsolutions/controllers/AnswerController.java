@@ -46,6 +46,13 @@ public class AnswerController {
                                 .body(new MessageDTO(HttpStatus.OK, false, respuestasRepo.findById(id).get()));
         }
 
+        @GetMapping("/pregunta/{idPregunta}")
+        public ResponseEntity<MessageDTO> getAnswerByIdQuestion(@PathVariable long idPregunta) {
+                return ResponseEntity.status(HttpStatus.OK)
+                                .body(new MessageDTO(HttpStatus.OK, false,
+                                                respuestasRepo.findRespuestasByIdPregunta(idPregunta)));
+        }
+
         @PostMapping("/")
         public ResponseEntity<MessageDTO> createAnswer(@RequestBody RespuestasDTO respuestasDTO) {
 
