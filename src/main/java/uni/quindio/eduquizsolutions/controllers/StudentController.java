@@ -31,4 +31,9 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,estudiantesRepo.findById(id)));
     }
 
+    @GetMapping("/curso/{idCourse}")
+    public ResponseEntity<MessageDTO> getStudentByCourseId(@PathVariable long idCourse) {
+        return ResponseEntity.status(HttpStatus.OK).body( new MessageDTO(HttpStatus.OK, false,estudiantesRepo.findByCouseId(idCourse)));
+    }
+
 }
