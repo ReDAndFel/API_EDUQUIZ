@@ -59,7 +59,11 @@ public class QuestionController {
                                 .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findPreguntasAsignadasByIdExamenAndIdEstudiante(idExamen, idEstudiante)));
         }
 
-        
+        @GetMapping("/tema/{idTema}")
+        public ResponseEntity<MessageDTO> getQuestionByIdTopic(@PathVariable long idTema) {
+                return ResponseEntity.status(HttpStatus.OK)
+                                .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findPreguntasByIdEstadoAndIdTema(idTema)));
+        }       
 
         @PostMapping("/")
         public ResponseEntity<MessageDTO> createQuestion(@RequestBody PreguntasDTO preguntasDTO) {
