@@ -3,17 +3,24 @@ package uni.quindio.eduquizsolutions.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "EXAMENES")
-public class Examen {
+public class Examen implements Serializable{
     @Id
+    @SequenceGenerator(name = "EXAMENES_SEQ", sequenceName = "EXAMENES_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EXAMENES_SEQ")
     @Column(name = "IDEXAMENEN", nullable = false)
     private Long id;
 
@@ -33,10 +40,10 @@ public class Examen {
     private Double calificacion;
 
     @Column(name = "HORAINICIO", nullable = false)
-    private LocalDate horaInicio;
+    private LocalTime horaInicio;
 
     @Column(name = "HORAFIN", nullable = false)
-    private LocalDate horaFin;
+    private LocalTime horaFin;
 
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)

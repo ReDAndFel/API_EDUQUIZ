@@ -53,22 +53,7 @@ public class AnswerController {
                                                 respuestasRepo.findRespuestasByIdPregunta(idPregunta)));
         }
 
-        @PostMapping("/")
-        public ResponseEntity<MessageDTO> createAnswer(@RequestBody RespuestasDTO respuestasDTO) {
-
-                Pregunta pregunta = preguntasRepo.findById(respuestasDTO.getIdPregunta()).get();
-
-                Respuesta respuesta = new Respuesta(
-                                null,
-                                respuestasDTO.getOpcionrespuesta(),
-                                respuestasDTO.getCorrecta(),
-                                pregunta);
-
-                respuestasRepo.save(respuesta);
-                return ResponseEntity.status(HttpStatus.CREATED)
-                                .body(new MessageDTO(HttpStatus.CREATED, false, "Respuesta creada correctamente"));
-        }
-
+        
         @PutMapping("/{id}")
         public ResponseEntity<MessageDTO> updateAnswer(@PathVariable long id,
                         @RequestBody RespuestasDTO respuestasDTO) {
