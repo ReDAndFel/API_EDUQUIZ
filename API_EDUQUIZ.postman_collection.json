@@ -116,6 +116,34 @@
 					"response": []
 				},
 				{
+					"name": "crear examen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"calificacion\": \"5\",\r\n    \"cantidadPreguntas\": \"10\",\r\n    \"cantidadPreguntasXEstudiante\": \"5\",\r\n    \"duracionExamen\": \"60\",\r\n    \"estado\": \"Borrador\",\r\n    \"fecha\": \"2024-05-22\",\r\n    \"horaFin\": \"17:00\",\r\n    \"horaInicio\": \"15:00\",\r\n    \"idCurso\": 2,\r\n    \"idTema\": 2,\r\n    \"notaParaAprobar\": \"3\",\r\n    \"titulo\": \"prueba3\",\r\n    \"preguntas\": [\r\n        {\r\n            \"enunciado\": \"¿Verdadero o falso? El Mio Cid es una obra anónima.\",\r\n            \"id\": 3,\r\n            \"idEstado\": 1,\r\n            \"idTema\": 3,\r\n            \"idTipoPregunta\": 3,\r\n            \"respuestas\": [\r\n                {\r\n                    \"id\": 7,\r\n                    \"opcionrespuesta\": \"Falso\",\r\n                    \"correcta\": \"Verdadera\"\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"opcionrespuesta\": \"Verdadero\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"enunciado\": \"La literatura española es...\",\r\n            \"idEstado\": 2,\r\n            \"idTema\": 3,\r\n            \"idTipoPregunta\": 2,\r\n            \"respuestas\": [\r\n                {\r\n                    \"opcionrespuesta\": \"Portuguesa\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"Española\",\r\n                    \"correcta\": \"Correcta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"Americana\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"India\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8084/examenes/",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"examenes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getExamenById",
 					"request": {
 						"method": "GET",
