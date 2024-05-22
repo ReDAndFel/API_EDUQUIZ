@@ -3,6 +3,9 @@ package uni.quindio.eduquizsolutions.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,7 +13,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Setter
 @Entity
 @Table(name = "UNIDADESESTUDIO")
-public class UnidadesEstudio {
+public class UnidadesEstudio implements Serializable {
     @Id
     @Column(name = "IDUNIDAD", nullable = false)
     private Long id;

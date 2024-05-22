@@ -1,5 +1,6 @@
 package uni.quindio.eduquizsolutions.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ import uni.quindio.eduquizsolutions.repositories.PreguntasRepo;
 import uni.quindio.eduquizsolutions.repositories.RespuestasRepo;
 import uni.quindio.eduquizsolutions.repositories.TemasRepo;
 import uni.quindio.eduquizsolutions.repositories.TiposPreguntasRepo;
+import uni.quindio.services.implementations.ExamenService;
+import uni.quindio.services.interfaces.ExamenInterface;
+import uni.quindio.services.interfaces.PreguntaInterface;
 
 @RestController
 @RequestMapping("/examenes")
@@ -41,18 +45,25 @@ public class ExamController {
 
     @Autowired
     ExamenesRepo examenesRepo;
+
     @Autowired
     CursosRepo cursosRepo;
+
     @Autowired
     TemasRepo temasRepo;
+
     @Autowired
     EstadosRepo estadosRepo;
+
     @Autowired
     TiposPreguntasRepo tiposPreguntasRepo;
+
     @Autowired
     PreguntasRepo preguntasRepo;
+
     @Autowired
     RespuestasRepo respuestasRepo;
+
     @Autowired
     BancopreguntasRepo bancopreguntasRepo;
 
@@ -61,9 +72,9 @@ public class ExamController {
 
         Examen examen = new Examen();
         examen.setCalificacion(examenesDTO.getCalificacion());
-        examen.setCantidadpreguntas(examenesDTO.getCantidadPreguntas());
-        examen.setCantidadpreguntasporexamen(examenesDTO.getCantidadPreguntasXEstudiante());
-        examen.setDuracionexamen(examenesDTO.getDuracionExamen());
+        examen.setCantidadpreguntas(examenesDTO.getCantidadpreguntas());
+        examen.setCantidadpreguntasporexamen(examenesDTO.getCantidadpreguntasporexamen());
+        examen.setDuracionexamen(examenesDTO.getDuracionexamen());
         examen.setEstado(examenesDTO.getEstado());
         examen.setFecha(examenesDTO.getFecha());
         examen.setTitulo(examenesDTO.getTitulo());
@@ -128,7 +139,7 @@ public class ExamController {
                 // bancopreguntasRepo.save(bancopregunta);
                 System.out.println("Se creo con exito el banco de preguntas");
             }
-        }else{
+        } else {
             System.out.println("Es un formulario para preguntas automaticas");
         }
 
@@ -149,14 +160,75 @@ public class ExamController {
 
     @GetMapping("/estudiante/{idStudent}")
     public ResponseEntity<MessageDTO> getExamByIdStudent(@PathVariable long idStudent) {
+
+        List<Examen> examenes = examenesRepo.findExamByIdStudent(idStudent);
+        List<ExamenesDTO> examenesDTOs = listaExamenesADTO(examenes);
+
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new MessageDTO(HttpStatus.OK, false, examenesRepo.findExamByIdStudent(idStudent)));
+                .body(new MessageDTO(HttpStatus.OK, false, examenesDTOs));
     }
 
     @GetMapping("/curso/{idCourse}")
     public ResponseEntity<MessageDTO> getExamByIdCourse(@PathVariable long idCourse) {
+
+        List<Examen> examenes = examenesRepo.findExamByIdCourse(idCourse);
+        List<ExamenesDTO> examenesDTOs = listaExamenesADTO(examenes);
+
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new MessageDTO(HttpStatus.OK, false, examenesRepo.findExamByIdCourse(idCourse)));
+                .body(new MessageDTO(HttpStatus.OK, false, examenesDTOs));
+    }
+
+    private List<ExamenesDTO> listaExamenesADTO(List<Examen> lista) {
+        List<ExamenesDTO> examenesDTOs = new ArrayList<>();
+
+        for (Examen examen : lista) {
+            // Convierte cada examen en dto
+            long examenId = examen.getId();
+            ExamenesDTO examenDTO = new ExamenesDTO();
+            examenDTO.setId(examenId);
+            examenDTO.setCalificacion(examen.getCalificacion());
+            examenDTO.setCantidadpreguntas(examen.getCantidadpreguntas());
+            examenDTO.setCantidadpreguntasporexamen(examen.getCantidadpreguntasporexamen());
+            examenDTO.setDuracionexamen(examen.getDuracionexamen());
+            examenDTO.setEstado(examen.getEstado());
+            examenDTO.setFecha(examen.getFecha());
+            examenDTO.setTitulo(examen.getTitulo());
+            examenDTO.setHoraFin(examen.getHoraFin());
+            examenDTO.setHoraInicio(examen.getHoraInicio());
+            examenDTO.setIdCurso(examen.getIdcurso().getId());
+            examenDTO.setIdTema(examen.getIdtema().getId());
+            examenDTO.setNotaParaAprobar(examen.getNotaParaAprobar());
+            // optiene las preguntas en dto
+            List<Pregunta> preguntas = preguntasRepo.findPreguntasByIdExamen(examenId);
+            List<PreguntasDTO> preguntasDTO = new ArrayList<>();
+
+            for (Pregunta pregunta : preguntas) {
+                PreguntasDTO preguntaDTO = new PreguntasDTO();
+                preguntaDTO.setId(pregunta.getId());
+                preguntaDTO.setEnunciado(pregunta.getEnunciado());
+                preguntaDTO.setIdEstado(pregunta.getIdestado().getId());
+                preguntaDTO.setPeso(pregunta.getPeso());
+                preguntaDTO.setIdTipoPregunta(pregunta.getIdtipopregunta().getId());
+                preguntaDTO.setIdTema(pregunta.getIdtema().getId());
+                // lista las respuestas en dto
+                List<Respuesta> respuestas = respuestasRepo.findRespuestasByIdPregunta(pregunta.getId());
+                List<RespuestasDTO> respuestasDTOs = new ArrayList<>();
+
+                for (Respuesta respuesta : respuestas) {
+                    RespuestasDTO respuestaDTO = new RespuestasDTO();
+                    respuestaDTO.setCorrecta(respuesta.getCorrecta());
+                    respuestaDTO.setId(respuesta.getId());
+                    respuestaDTO.setIdPregunta(respuesta.getIdpreguntas().getId());
+                    respuestaDTO.setOpcionrespuesta(respuesta.getOpcionrespuesta());
+                    respuestasDTOs.add(respuestaDTO);
+                }
+                preguntaDTO.setRespuestas(respuestasDTOs);
+                preguntasDTO.add(preguntaDTO);
+            }
+            examenDTO.setPreguntas(preguntasDTO);
+            examenesDTOs.add(examenDTO);
+        }
+        return examenesDTOs;
     }
 
 }

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,7 +17,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "RESPUESTAS")
-public class Respuesta {
+public class Respuesta implements Serializable {
     @Id
     @SequenceGenerator(name = "RESPUESTA_SEQ", sequenceName = "RESPUESTA_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESPUESTA_SEQ")

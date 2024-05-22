@@ -6,13 +6,14 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "ASIGNACIONES_ESTUDIANTES")
-public class AsignacionesEstudiante {
+public class AsignacionesEstudiante implements Serializable {
     @Id
     @Column(name = "IDASIGNACION", nullable = false)
     private Long id;

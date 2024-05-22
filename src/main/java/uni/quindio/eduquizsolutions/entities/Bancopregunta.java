@@ -3,6 +3,9 @@ package uni.quindio.eduquizsolutions.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,7 +13,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Setter
 @Entity
 @Table(name = "BANCOPREGUNTAS")
-public class Bancopregunta {
+public class Bancopregunta implements Serializable{
     @Id
     @SequenceGenerator(name = "BANCOPREGUNTA_SEQ", sequenceName = "BANCOPREGUNTA_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BANCOPREGUNTA_SEQ")

@@ -13,9 +13,9 @@ public class ExamenesDTO {
     private Long id;
     private String titulo;
     private LocalDate fecha;
-    private Long duracionExamen;
-    private Long cantidadPreguntas;
-    private Long cantidadPreguntasXEstudiante;
+    private Long duracionexamen;
+    private Long cantidadpreguntas;
+    private Long cantidadpreguntasporexamen;
     private Double calificacion;
     private LocalTime horaInicio;
     private LocalTime horaFin;
