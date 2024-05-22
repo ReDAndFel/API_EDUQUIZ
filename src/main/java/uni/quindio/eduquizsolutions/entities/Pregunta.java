@@ -34,6 +34,9 @@ public class Pregunta {
     @JoinColumn(name = "IDESTADO", nullable = false)
     private Estado idestado;
 
+    @Column(name = "PESO", nullable = false)
+    private float peso;
+
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "IDTIPOPREGUNTA", nullable = false)

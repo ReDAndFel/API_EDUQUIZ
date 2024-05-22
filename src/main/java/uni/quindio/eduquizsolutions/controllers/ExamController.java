@@ -95,6 +95,7 @@ public class ExamController {
                 pregunta.setEnunciado(preguntaDTO.getEnunciado());
                 Estado estadoPregunta = estadosRepo.findById(preguntaDTO.getIdEstado()).get();
                 pregunta.setIdestado(estadoPregunta);
+                pregunta.setPeso(preguntaDTO.getPeso());
                 TiposPregunta tiposPregunta = tiposPreguntasRepo.findById(preguntaDTO.getIdTipoPregunta()).get();
                 pregunta.setIdtipopregunta(tiposPregunta);
                 pregunta.setIdtema(tema);
@@ -145,4 +146,11 @@ public class ExamController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new MessageDTO(HttpStatus.OK, false, examenesRepo.findExamByIdStudent(idStudent)));
     }
+
+    @GetMapping("/curso/{idCourse}")
+    public ResponseEntity<MessageDTO> getExamByIdCourse(@PathVariable long idCourse) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new MessageDTO(HttpStatus.OK, false, examenesRepo.findExamByIdCourse(idCourse)));
+    }
+    
 }

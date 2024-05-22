@@ -17,4 +17,9 @@ public interface ExamenesRepo extends JpaRepository<Examen, Long > {
             + "WHERE es.id = :idEstudiante")
     List<Examen> findExamByIdStudent(Long idEstudiante);
 
+    
+    @Query("SELECT e FROM Examen e "
+            + "WHERE e.idcurso.id = :idCourse")
+    List<Examen> findExamByIdCourse(Long idCourse);
+
 }

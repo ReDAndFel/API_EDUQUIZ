@@ -13,5 +13,6 @@ public class PreguntasDTO {
     private Long idTema;
     private Long idEstado;
     private Long idTipoPregunta;
+    private float peso;
     private List<RespuestasDTO> respuestas;
 }
