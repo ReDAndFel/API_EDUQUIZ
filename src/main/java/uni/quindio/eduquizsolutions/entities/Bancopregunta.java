@@ -12,6 +12,8 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "BANCOPREGUNTAS")
 public class Bancopregunta {
     @Id
+    @SequenceGenerator(name = "BANCOPREGUNTA_SEQ", sequenceName = "BANCOPREGUNTA_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BANCOPREGUNTA_SEQ")
     @Column(name = "IDBANCO", nullable = false)
     private Long id;
 
