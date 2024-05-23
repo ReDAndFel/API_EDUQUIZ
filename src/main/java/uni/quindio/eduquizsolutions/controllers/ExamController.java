@@ -152,29 +152,6 @@ public class ExamController {
     public ResponseEntity<MessageDTO> deleteExam(@PathVariable long idExam) throws Exception {
 
         Examen examen = examenesRepo.findById(idExam).get();
-
-        // Recorre los bancos que se crearon en el formulario y las elimina
-        List<Bancopregunta> bancos = bancopreguntasRepo.findBankByIdExam(idExam);
-
-        /**for (Bancopregunta banco : bancos) {
-            bancopreguntasRepo.delete(banco);
-            System.out.println("Banco eliminado");
-
-        }
-
-        // Recorre las preguntas y las preguntas privadas que se crearon en el examen se
-        // eliminan
-        List<Pregunta> preguntas = preguntasRepo.findPreguntasByIdExamen(idExam);
-
-        for (Pregunta pregunta : preguntas) {
-            long idEstado = pregunta.getIdestado().getId();
-            System.out.println("idEstado de preguta: " + idEstado);
-            if (idEstado == 2) {
-                preguntasRepo.delete(pregunta);
-                System.out.println("Pregunta eliminada");
-            }
-        }**/
-
         examenesRepo.delete(examen);
         System.out.println("Examen eliminado");
         return ResponseEntity.status(HttpStatus.OK)
