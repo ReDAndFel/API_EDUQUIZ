@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,7 +69,7 @@ public class ExamController {
     BancopreguntasRepo bancopreguntasRepo;
 
     @PostMapping("/")
-    public ResponseEntity<MessageDTO> createAnswer(@RequestBody ExamenesDTO examenesDTO) throws Exception {
+    public ResponseEntity<MessageDTO> createExam(@RequestBody ExamenesDTO examenesDTO) throws Exception {
 
         Examen examen = new Examen();
         examen.setCalificacion(examenesDTO.getCalificacion());
@@ -86,7 +87,7 @@ public class ExamController {
         examen.setIdtema(tema);
         examen.setNotaParaAprobar(examenesDTO.getNotaParaAprobar());
         // guarda el examen en la base de datos
-        // examenesRepo.save(examen);
+        examenesRepo.save(examen);
         System.out.println("Se creo con exito el examen");
         // carga la lista de las preguntas mandadas
         List<PreguntasDTO> preguntasDTO = examenesDTO.getPreguntas();
@@ -113,7 +114,7 @@ public class ExamController {
                     pregunta.setIdtipopregunta(tiposPregunta);
                     pregunta.setIdtema(tema);
                     // guarda la pregunta en la base de datos
-                    // preguntasRepo.save(pregunta);
+                    preguntasRepo.save(pregunta);
                     System.out.println("Pregunta creada con exito con estado: " + preguntaDTO.getIdEstado());
                     // recorre las respuestas para crearlas
                     List<RespuestasDTO> respuestasDTO = preguntaDTO.getRespuestas();
@@ -124,7 +125,7 @@ public class ExamController {
                         respuesta.setIdpreguntas(pregunta);
                         respuesta.setOpcionrespuesta(respuestaDTO.getOpcionrespuesta());
                         // guarda las respuestas en la base de datos
-                        // respuestasRepo.save(respuesta);
+                        respuestasRepo.save(respuesta);
                         System.out.println("Respuesta creada con exito");
                     }
                 } else {
@@ -136,7 +137,7 @@ public class ExamController {
                 bancopregunta.setExamenesIdexamenen(examen);
                 bancopregunta.setPreguntasIdpregunta(pregunta);
                 // Guarda el banco de preguntas en la base de datos
-                // bancopreguntasRepo.save(bancopregunta);
+                bancopreguntasRepo.save(bancopregunta);
                 System.out.println("Se creo con exito el banco de preguntas");
             }
         } else {
@@ -145,6 +146,40 @@ public class ExamController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new MessageDTO(HttpStatus.CREATED, false, "Examen creada correctamente"));
+    }
+
+    @DeleteMapping("/{idExam}")
+    public ResponseEntity<MessageDTO> deleteExam(@PathVariable long idExam) throws Exception {
+
+        Examen examen = examenesRepo.findById(idExam).get();
+
+        // Recorre los bancos que se crearon en el formulario y las elimina
+        List<Bancopregunta> bancos = bancopreguntasRepo.findBankByIdExam(idExam);
+
+        /**for (Bancopregunta banco : bancos) {
+            bancopreguntasRepo.delete(banco);
+            System.out.println("Banco eliminado");
+
+        }
+
+        // Recorre las preguntas y las preguntas privadas que se crearon en el examen se
+        // eliminan
+        List<Pregunta> preguntas = preguntasRepo.findPreguntasByIdExamen(idExam);
+
+        for (Pregunta pregunta : preguntas) {
+            long idEstado = pregunta.getIdestado().getId();
+            System.out.println("idEstado de preguta: " + idEstado);
+            if (idEstado == 2) {
+                preguntasRepo.delete(pregunta);
+                System.out.println("Pregunta eliminada");
+            }
+        }**/
+
+        examenesRepo.delete(examen);
+        System.out.println("Examen eliminado");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new MessageDTO(HttpStatus.OK, false, "Examen eliminado correctamente"));
+
     }
 
     @GetMapping("/")
