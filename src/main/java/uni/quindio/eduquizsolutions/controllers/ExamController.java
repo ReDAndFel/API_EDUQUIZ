@@ -38,6 +38,7 @@ import uni.quindio.eduquizsolutions.repositories.TiposPreguntasRepo;
 import uni.quindio.services.implementations.ExamenService;
 import uni.quindio.services.interfaces.ExamenInterface;
 import uni.quindio.services.interfaces.PreguntaInterface;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/examenes")
@@ -76,7 +77,7 @@ public class ExamController {
             examen.setCantidadpreguntas(examenesDTO.getCantidadpreguntas());
             examen.setCantidadpreguntasporexamen(examenesDTO.getCantidadpreguntasporexamen());
             examen.setDuracionexamen(examenesDTO.getDuracionexamen());
-            examen.setEstado(examenesDTO.getEstado());
+            examen.setEstado("Guardando");            
             examen.setFecha(examenesDTO.getFecha());
             examen.setTitulo(examenesDTO.getTitulo());
             examen.setHoraFin(examenesDTO.getHoraFin());
@@ -90,7 +91,7 @@ public class ExamController {
             List<PreguntasDTO> preguntasDTO = examenesDTO.getPreguntas();
             // guarda el examen en la base de datos
             examenesRepo.save(examen);
-            
+
             if (preguntasDTO != null) {
                 // itera las preguntas
                 for (PreguntasDTO preguntaDTO : preguntasDTO) {
@@ -117,7 +118,7 @@ public class ExamController {
                         List<RespuestasDTO> respuestasDTO = preguntaDTO.getRespuestas();
                         // guarda la pregunta en la base de datos
                         preguntasRepo.save(pregunta);
-                        
+
                         for (RespuestasDTO respuestaDTO : respuestasDTO) {
                             // crea las respuestas
                             Respuesta respuesta = new Respuesta();
@@ -137,11 +138,14 @@ public class ExamController {
                     bancopregunta.setPreguntasIdpregunta(pregunta);
                     // Guarda el banco de preguntas en la base de datos
                     bancopreguntasRepo.save(bancopregunta);
+                    examen.setEstado(examenesDTO.getEstado());
+                    examenesRepo.save(examen);            
+
                 }
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new MessageDTO(HttpStatus.BAD_REQUEST, true, e.getMessage()));
+                    .body(new MessageDTO(HttpStatus.BAD_REQUEST, true, e.getMessage()));
         }
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -165,6 +169,53 @@ public class ExamController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new MessageDTO(HttpStatus.OK, false, "Examen eliminado correctamente"));
 
+    }
+
+    @PutMapping("/{idExam}")
+    public ResponseEntity<MessageDTO> updateExam(@PathVariable long idExam, @RequestBody ExamenesDTO examenesDTO)
+            throws Exception {
+
+        try {
+            Examen examen = examenesRepo.findById(idExam).get();
+            examen.setCalificacion(examenesDTO.getCalificacion());
+            examen.setCantidadpreguntas(examenesDTO.getCantidadpreguntas());
+            examen.setCantidadpreguntasporexamen(examenesDTO.getCantidadpreguntasporexamen());
+            examen.setDuracionexamen(examenesDTO.getDuracionexamen());
+            examen.setEstado("Guardando");
+            examen.setFecha(examenesDTO.getFecha());
+            examen.setTitulo(examenesDTO.getTitulo());
+            examen.setHoraFin(examenesDTO.getHoraFin());
+            examen.setHoraInicio(examenesDTO.getHoraInicio());
+            Curso curso = cursosRepo.findById(examenesDTO.getIdCurso()).get();
+            examen.setIdcurso(curso);
+            Tema tema = temasRepo.findById(examenesDTO.getIdTema()).get();
+            examen.setIdtema(tema);
+            examen.setNotaParaAprobar(examenesDTO.getNotaParaAprobar());
+            // carga la lista de las preguntas mandadas
+            List<PreguntasDTO> preguntasDTO = examenesDTO.getPreguntas();
+            // guarda el examen en la base de datos
+            examenesRepo.save(examen);
+            //otras cosas
+            examen.setEstado(examenesDTO.getEstado());
+            examenesRepo.save(examen);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageDTO(HttpStatus.OK, true, e.getMessage()));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new MessageDTO(HttpStatus.OK, false, "Examen actualizado exitosamente"));
+    }
+
+    @PutMapping("/{idExam}")
+    public ResponseEntity<MessageDTO> publishExam(@PathVariable long idExam, @RequestBody ExamenesDTO examenDTO)
+            throws Exception {
+        try {
+            Examen examen = examenesRepo.findById(idExam).get();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageDTO(HttpStatus.OK, true, e.getMessage()));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new MessageDTO(HttpStatus.OK, false, "Examen publicado exitosamente"));
     }
 
     @GetMapping("/")
