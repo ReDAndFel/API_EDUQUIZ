@@ -15,4 +15,8 @@ public interface BancopreguntasRepo extends JpaRepository<Bancopregunta, Long> {
             + "WHERE b.examenesIdexamenen.id = :idExam")
     List<Bancopregunta> findBankByIdExam(Long idExam);
 
+    @Query("SELECT b FROM Bancopregunta b "
+            + "WHERE b.examenesIdexamenen.id = :idExam and b.preguntasIdpregunta.id = :idQuestion")
+    List<Bancopregunta> findBankByIdExamAndIdQuestion(Long idExam, long idQuestion);
+
 }

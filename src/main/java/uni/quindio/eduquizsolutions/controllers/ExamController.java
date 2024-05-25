@@ -77,7 +77,7 @@ public class ExamController {
             examen.setCantidadpreguntas(examenesDTO.getCantidadpreguntas());
             examen.setCantidadpreguntasporexamen(examenesDTO.getCantidadpreguntasporexamen());
             examen.setDuracionexamen(examenesDTO.getDuracionexamen());
-            examen.setEstado("Guardando");            
+            examen.setEstado("Guardando");
             examen.setFecha(examenesDTO.getFecha());
             examen.setTitulo(examenesDTO.getTitulo());
             examen.setHoraFin(examenesDTO.getHoraFin());
@@ -89,60 +89,14 @@ public class ExamController {
             examen.setNotaParaAprobar(examenesDTO.getNotaParaAprobar());
             // carga la lista de las preguntas mandadas
             List<PreguntasDTO> preguntasDTO = examenesDTO.getPreguntas();
-            // guarda el examen en la base de datos
+            System.out.println("ID new examen  = " + examen.getId());
+            // guarda el examen en la base de datos con estado guardando
+            examenesRepo.save(examen);
+            crearBancosExamen(preguntasDTO, tema, examen);
+            // Cambia a borrador y actualiza
+            examen.setEstado(examenesDTO.getEstado());
             examenesRepo.save(examen);
 
-            if (preguntasDTO != null) {
-                // itera las preguntas
-                for (PreguntasDTO preguntaDTO : preguntasDTO) {
-                    // inicializa una pregunta
-                    Pregunta pregunta = new Pregunta();
-                    // Obtiene el id de la pregunta si tiene uno, sí no es null
-                    Long preguntaId = preguntaDTO.getId();
-
-                    // NOTA: idEstado: 2 es privado y 1 publico
-                    // valida si la pregunta tiene un id, para crearla u obtenerla de la base de
-                    // datos
-                    if (preguntaId == null) {
-                        // crea la pregunta
-                        pregunta = new Pregunta();
-                        pregunta.setEnunciado(preguntaDTO.getEnunciado());
-                        Estado estadoPregunta = estadosRepo.findById(preguntaDTO.getIdEstado()).get();
-                        pregunta.setIdestado(estadoPregunta);
-                        pregunta.setPeso(preguntaDTO.getPeso());
-                        TiposPregunta tiposPregunta = tiposPreguntasRepo.findById(preguntaDTO.getIdTipoPregunta())
-                                .get();
-                        pregunta.setIdtipopregunta(tiposPregunta);
-                        pregunta.setIdtema(tema);
-                        // recorre las respuestas para crearlas
-                        List<RespuestasDTO> respuestasDTO = preguntaDTO.getRespuestas();
-                        // guarda la pregunta en la base de datos
-                        preguntasRepo.save(pregunta);
-
-                        for (RespuestasDTO respuestaDTO : respuestasDTO) {
-                            // crea las respuestas
-                            Respuesta respuesta = new Respuesta();
-                            respuesta.setCorrecta(respuestaDTO.getCorrecta());
-                            respuesta.setIdpreguntas(pregunta);
-                            respuesta.setOpcionrespuesta(respuestaDTO.getOpcionrespuesta());
-                            // guarda las respuestas en la base de datos
-                            respuestasRepo.save(respuesta);
-                        }
-                    } else {
-                        // Obtiene la pregunta con le id
-                        pregunta = preguntasRepo.findById(preguntaDTO.getId()).get();
-                    }
-                    // Crea el banco de preguntas
-                    Bancopregunta bancopregunta = new Bancopregunta();
-                    bancopregunta.setExamenesIdexamenen(examen);
-                    bancopregunta.setPreguntasIdpregunta(pregunta);
-                    // Guarda el banco de preguntas en la base de datos
-                    bancopreguntasRepo.save(bancopregunta);
-                    examen.setEstado(examenesDTO.getEstado());
-                    examenesRepo.save(examen);            
-
-                }
-            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageDTO(HttpStatus.BAD_REQUEST, true, e.getMessage()));
@@ -150,6 +104,58 @@ public class ExamController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new MessageDTO(HttpStatus.CREATED, false, "Examen creada correctamente"));
+    }
+
+    private void crearBancosExamen(List<PreguntasDTO> preguntasDTO, Tema tema, Examen examen) {
+        if (preguntasDTO != null) {
+            // itera las preguntas
+            for (PreguntasDTO preguntaDTO : preguntasDTO) {
+                // inicializa una pregunta
+                Pregunta pregunta = new Pregunta();
+                // Obtiene el id de la pregunta si tiene uno, sí no es null
+                Long preguntaId = preguntaDTO.getId();
+
+                // NOTA: idEstado: 2 es privado y 1 publico
+                // valida si la pregunta tiene un id, para crearla u obtenerla de la base de
+                // datos
+                if (preguntaId != null) {
+                    // Obtiene la pregunta con le id
+                    pregunta = preguntasRepo.findById(preguntaDTO.getId()).get();
+                } else {
+                    // crea la pregunta
+                    pregunta = new Pregunta();
+                    pregunta.setEnunciado(preguntaDTO.getEnunciado());
+                    Estado estadoPregunta = estadosRepo.findById(preguntaDTO.getIdEstado()).get();
+                    pregunta.setIdestado(estadoPregunta);
+                    pregunta.setPeso(preguntaDTO.getPeso());
+                    TiposPregunta tiposPregunta = tiposPreguntasRepo.findById(preguntaDTO.getIdTipoPregunta())
+                            .get();
+                    pregunta.setIdtipopregunta(tiposPregunta);
+                    pregunta.setIdtema(tema);
+                    // recorre las respuestas para crearlas
+                    List<RespuestasDTO> respuestasDTO = preguntaDTO.getRespuestas();
+                    // guarda la pregunta en la base de datos
+                    preguntasRepo.save(pregunta);
+
+                    for (RespuestasDTO respuestaDTO : respuestasDTO) {
+                        // crea las respuestas
+                        Respuesta respuesta = new Respuesta();
+                        respuesta.setCorrecta(respuestaDTO.getCorrecta());
+                        respuesta.setIdpreguntas(pregunta);
+                        respuesta.setOpcionrespuesta(respuestaDTO.getOpcionrespuesta());
+                        // guarda las respuestas en la base de datos
+                        respuestasRepo.save(respuesta);
+                    }
+                }
+
+                // Crea el banco de preguntas
+                Bancopregunta bancopregunta = new Bancopregunta();
+                bancopregunta.setExamenesIdexamenen(examen);
+                bancopregunta.setPreguntasIdpregunta(pregunta);
+                // Guarda el banco de preguntas en la base de datos
+                bancopreguntasRepo.save(bancopregunta);
+            }
+        }
     }
 
     @DeleteMapping("/{idExam}")
@@ -174,9 +180,8 @@ public class ExamController {
     @PutMapping("/{idExam}")
     public ResponseEntity<MessageDTO> updateExam(@PathVariable long idExam, @RequestBody ExamenesDTO examenesDTO)
             throws Exception {
-
+        Examen examen = examenesRepo.findById(idExam).get();
         try {
-            Examen examen = examenesRepo.findById(idExam).get();
             examen.setCalificacion(examenesDTO.getCalificacion());
             examen.setCantidadpreguntas(examenesDTO.getCantidadpreguntas());
             examen.setCantidadpreguntasporexamen(examenesDTO.getCantidadpreguntasporexamen());
@@ -191,28 +196,33 @@ public class ExamController {
             Tema tema = temasRepo.findById(examenesDTO.getIdTema()).get();
             examen.setIdtema(tema);
             examen.setNotaParaAprobar(examenesDTO.getNotaParaAprobar());
-            // carga la lista de las preguntas mandadas
-            List<PreguntasDTO> preguntasDTO = examenesDTO.getPreguntas();
             // guarda el examen en la base de datos
             examenesRepo.save(examen);
-            //otras cosas
+            // carga la lista de las preguntas mandadas
+            List<PreguntasDTO> preguntasDTO = examenesDTO.getPreguntas();
+            crearBancosExamen(preguntasDTO, tema, examen);
+            // Cambia a borrador y actualiza
             examen.setEstado(examenesDTO.getEstado());
             examenesRepo.save(examen);
-
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.OK).body(new MessageDTO(HttpStatus.OK, true, e.getMessage()));
         }
+
+        // TODO: handle exception
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new MessageDTO(HttpStatus.OK, false, "Examen actualizado exitosamente"));
     }
 
-    @PutMapping("/{idExam}")
-    public ResponseEntity<MessageDTO> publishExam(@PathVariable long idExam, @RequestBody ExamenesDTO examenDTO)
+    @PutMapping("/publish/{idExam}")
+    public ResponseEntity<MessageDTO> publishExam(@PathVariable long idExam)
             throws Exception {
+        Examen examen = examenesRepo.findById(idExam).get();
+
         try {
-            Examen examen = examenesRepo.findById(idExam).get();
+            examen.setEstado("Publicado");
+            examenesRepo.save(examen);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.OK).body(new MessageDTO(HttpStatus.OK, true, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageDTO(HttpStatus.BAD_REQUEST, false, e.getMessage()));
         }
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new MessageDTO(HttpStatus.OK, false, "Examen publicado exitosamente"));

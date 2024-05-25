@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3fb40251-af6f-4c33-8b4f-e1b940052c4f",
+		"_postman_id": "cf905217-0ab6-4a6b-a4e1-f5180b3ba859",
 		"name": "API_EDUQUIZ",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25028597"
@@ -141,7 +141,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"calificacion\": \"5\",\r\n    \"cantidadpreguntas\": \"10\",\r\n    \"cantidadpreguntasporexamen\": \"5\",\r\n    \"duracionexamen\": \"60\",\r\n    \"estado\": \"Borrador\",\r\n    \"fecha\": \"2024-05-22\",\r\n    \"horaFin\": \"17:00\",\r\n    \"horaInicio\": \"15:00\",\r\n    \"idCurso\": 2,\r\n    \"idTema\": 2,\r\n    \"notaParaAprobar\": \"3\",\r\n    \"titulo\": \"prueba3\",\r\n    //\"pregunta\":[]\r\n    \r\n    \"preguntas\": [\r\n        {\r\n            \"enunciado\": \"¿Verdadero o falso? El Mio Cid es una obra anónima.\",\r\n            \"id\": 3,\r\n            \"idEstado\": 1,\r\n            \"idTema\": 3,\r\n            \"peso\":50.0,\r\n            \"idTipoPregunta\": 3,\r\n            \"respuestas\": [\r\n                {\r\n                    \"id\": 7,\r\n                    \"opcionrespuesta\": \"Falso\",\r\n                    \"correcta\": \"Verdadera\"\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"opcionrespuesta\": \"Verdadero\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"enunciado\": \"La literatura española es...\",\r\n            \"idEstado\": 2,\r\n            \"idTema\": 3,\r\n            \"peso\":50.0,\r\n            \"idTipoPregunta\": 2,\r\n            \"respuestas\": [\r\n                {\r\n                    \"opcionrespuesta\": \"Portuguesa\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"Española\",\r\n                    \"correcta\": \"Correcta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"Americana\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"India\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"calificacion\": \"5\",\r\n    \"cantidadpreguntas\": \"5\",\r\n    \"cantidadpreguntasporexamen\": \"5\",\r\n    \"duracionexamen\": \"60\",\r\n    \"estado\": \"Borrador\",\r\n    \"fecha\": \"2024-05-22\",\r\n    \"horaFin\": \"17:00\",\r\n    \"horaInicio\": \"15:00\",\r\n    \"idCurso\": 2,\r\n    \"idTema\": 3,\r\n    \"notaParaAprobar\": \"3\",\r\n    \"titulo\": \"Examen de prueba\",\r\n    //\"pregunta\":[]\r\n    \r\n    \"preguntas\": [\r\n        {\r\n            \"enunciado\": \"¿Verdadero o falso? El Mio Cid es una obra anónima.\",\r\n            \"id\": 3,\r\n            \"idEstado\": 1,\r\n            \"idTema\": 3,\r\n            \"peso\":50.0,\r\n            \"idTipoPregunta\": 3,\r\n            \"respuestas\": [\r\n                {\r\n                    \"id\": 7,\r\n                    \"opcionrespuesta\": \"Falso\",\r\n                    \"correcta\": \"Verdadera\"\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"opcionrespuesta\": \"Verdadero\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"enunciado\": \"La literatura española es...\",\r\n            \"idEstado\": 2,\r\n            \"idTema\": 3,\r\n            \"peso\":50.0,\r\n            \"idTipoPregunta\": 2,\r\n            \"respuestas\": [\r\n                {\r\n                    \"opcionrespuesta\": \"Portuguesa\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"Española\",\r\n                    \"correcta\": \"Correcta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"Americana\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"India\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -157,6 +157,54 @@
 							"path": [
 								"examenes",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar examen",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"calificacion\": \"5\",\r\n    \"cantidadpreguntas\": \"3\",\r\n    \"cantidadpreguntasporexamen\": \"2\",\r\n    \"duracionexamen\": \"90\",\r\n    \"estado\": \"Borrador\",\r\n    \"fecha\": \"2024-05-29\",\r\n    \"horaFin\": \"20:00\",\r\n    \"horaInicio\": \"15:00\",\r\n    \"idCurso\": 2,\r\n    \"idTema\": 3,\r\n    \"notaParaAprobar\": \"3\",\r\n    \"titulo\": \"Examen definitivo imposible\",\r\n    //\"pregunta\":[]\r\n    \r\n    \"preguntas\": [\r\n        {\r\n            \"enunciado\": \"¿Verdadero o falso? El Mio Cid es una obra anónima.\",\r\n            \"id\": 3,\r\n            \"idEstado\": 1,\r\n            \"idTema\": 3,\r\n            \"peso\":50.0,\r\n            \"idTipoPregunta\": 3,\r\n            \"respuestas\": [\r\n                {\r\n                    \"id\": 7,\r\n                    \"opcionrespuesta\": \"Falso\",\r\n                    \"correcta\": \"Verdadera\"\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"opcionrespuesta\": \"Verdadero\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"enunciado\": \"La literatura española es...\",\r\n            \"idEstado\": 2,\r\n            \"idTema\": 3,\r\n            \"peso\":50.0,\r\n            \"idTipoPregunta\": 2,\r\n            \"respuestas\": [\r\n                {\r\n                    \"opcionrespuesta\": \"Portuguesa\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"Española\",\r\n                    \"correcta\": \"Correcta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"Americana\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                },\r\n                {\r\n                    \"opcionrespuesta\": \"India\",\r\n                    \"correcta\": \"Incorrecta\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8084/examenes/88",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"examenes",
+								"88"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "publicar examen",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8084/examenes/publish/88",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"examenes",
+								"publish",
+								"88"
 							]
 						}
 					},
@@ -558,13 +606,36 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8084/bancos/1",
+							"raw": "localhost:8084/bancos/examen/1",
 							"host": [
 								"localhost"
 							],
 							"port": "8084",
 							"path": [
 								"bancos",
+								"examen",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBanksByIdExamaIdQuestion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8084/bancos/examen/54/pregunta/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"bancos",
+								"examen",
+								"54",
+								"pregunta",
 								"1"
 							]
 						}

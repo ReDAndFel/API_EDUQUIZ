@@ -20,8 +20,16 @@ public class BankQuestion {
     @Autowired
     BancopreguntasRepo bancopreguntasRepo;
 
-    @GetMapping("/{idExam}")
-    public ResponseEntity<MessageDTO> getBankByIdExam( @PathVariable long idExam) {
-        return ResponseEntity.status(HttpStatus.OK).body(new MessageDTO(HttpStatus.OK, false, bancopreguntasRepo.findBankByIdExam(idExam)));
+    @GetMapping("/examen/{idExam}")
+    public ResponseEntity<MessageDTO> getBankByIdExam(@PathVariable long idExam) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new MessageDTO(HttpStatus.OK, false, bancopreguntasRepo.findBankByIdExam(idExam)));
+    }
+
+    @GetMapping("/examen/{idExam}/pregunta/{idQuestion}")
+    public ResponseEntity<MessageDTO> getBankByIdExamIdQuestion(@PathVariable long idExam,
+            @PathVariable long idQuestion) {
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDTO(HttpStatus.OK, false,
+                bancopreguntasRepo.findBankByIdExamAndIdQuestion(idExam, idQuestion)));
     }
 }
