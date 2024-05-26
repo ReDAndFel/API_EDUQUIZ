@@ -207,6 +207,8 @@ public class ExamController {
             // guarda el examen en la base de datos
             examenesRepo.save(examen);
             // carga la lista de las preguntas mandadas
+            List<Bancopregunta> bancos = bancopreguntasRepo.findBankByIdExam(idExam);
+            bancopreguntasRepo.deleteAll(bancos);
             List<PreguntasDTO> preguntasDTO = examenesDTO.getPreguntas();
             crearBancosExamen(preguntasDTO, tema, examen);
             // Cambia a borrador y actualiza
@@ -215,7 +217,7 @@ public class ExamController {
         } catch (Exception e) {
             examen.setEstado("Borrador");
             examenesRepo.save(examen);
-            
+
             return ResponseEntity.status(HttpStatus.OK).body(new MessageDTO(HttpStatus.OK, true, e.getMessage()));
         }
 
