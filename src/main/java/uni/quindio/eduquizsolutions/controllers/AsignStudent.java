@@ -102,6 +102,7 @@ public class AsignStudent {
             Examen examen = examenesRepo.findById(asignacionesEstudiantesDTO.getIdExamenes()).get();
             asignacion.setIdexamenes(examen);
             asignacion.setNota(asignacionesEstudiantesDTO.getNota());
+            asignacionesEstudianteRepo.save(asignacion);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new MessageDTO(HttpStatus.INTERNAL_SERVER_ERROR, true, e.getMessage()));

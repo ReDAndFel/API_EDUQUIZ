@@ -15,6 +15,8 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "RESPUESTAS_ESTUDIANTES")
 public class RespuestasEstudiante implements Serializable{
     @Id
+    @SequenceGenerator(name = "RESPUESTAS_ESTUDIANTES_SEQ", sequenceName = "RESPUESTAS_ESTUDIANTES_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESPUESTAS_ESTUDIANTES_SEQ")
     @Column(name = "IDRESPUESTAESTUDIANTE", nullable = false)
     private Long id;
 

@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -15,6 +16,8 @@ import java.time.LocalDate;
 @Table(name = "ASIGNACIONES_ESTUDIANTES")
 public class AsignacionesEstudiante implements Serializable {
     @Id
+    @SequenceGenerator(name = "ASIGNACIONES_ESTUDIANTES_SEQ", sequenceName = "ASIGNACIONES_ESTUDIANTES_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ASIGNACIONES_ESTUDIANTES_SEQ")
     @Column(name = "IDASIGNACION", nullable = false)
     private Long id;
 
@@ -32,10 +35,10 @@ public class AsignacionesEstudiante implements Serializable {
     private Double nota;
 
     @Column(name = "HORA_INICIO", nullable = false)
-    private LocalDate horaInicio;
+    private LocalTime horaInicio;
 
     @Column(name = "HORA_FIN", nullable = false)
-    private LocalDate horaFin;
+    private LocalTime horaFin;
 
     @Column(name = "FECHA", nullable = false)
     private LocalDate fecha;

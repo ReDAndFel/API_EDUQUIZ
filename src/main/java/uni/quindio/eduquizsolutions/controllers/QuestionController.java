@@ -1,5 +1,8 @@
 package uni.quindio.eduquizsolutions.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,12 +11,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uni.quindio.eduquizsolutions.DTOS.MessageDTO;
 import uni.quindio.eduquizsolutions.DTOS.PreguntasDTO;
+import uni.quindio.eduquizsolutions.DTOS.RespuestasDTO;
 import uni.quindio.eduquizsolutions.entities.Estado;
 import uni.quindio.eduquizsolutions.entities.Pregunta;
+import uni.quindio.eduquizsolutions.entities.Respuesta;
 import uni.quindio.eduquizsolutions.entities.Tema;
 import uni.quindio.eduquizsolutions.entities.TiposPregunta;
 import uni.quindio.eduquizsolutions.repositories.EstadosRepo;
 import uni.quindio.eduquizsolutions.repositories.PreguntasRepo;
+import uni.quindio.eduquizsolutions.repositories.RespuestasRepo;
 import uni.quindio.eduquizsolutions.repositories.TemasRepo;
 import uni.quindio.eduquizsolutions.repositories.TiposPreguntasRepo;
 
@@ -33,6 +39,9 @@ public class QuestionController {
         PreguntasRepo preguntasRepo;
 
         @Autowired
+        RespuestasRepo respuestasRepo;
+
+        @Autowired
         TemasRepo temasRepo;
 
         @Autowired
@@ -50,20 +59,54 @@ public class QuestionController {
         @GetMapping("/examen/{idExamen}")
         public ResponseEntity<MessageDTO> getQuestionByExamId(@PathVariable long idExamen) {
                 return ResponseEntity.status(HttpStatus.OK)
-                                .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findPreguntasByIdExamen(idExamen)));
+                                .body(new MessageDTO(HttpStatus.OK, false,
+                                                preguntasRepo.findPreguntasByIdExamen(idExamen)));
         }
 
         @GetMapping("/examen/{idExamen}/estudiante/{idEstudiante}")
-        public ResponseEntity<MessageDTO> getQuestionByExamIdAndIdStudent(@PathVariable long idExamen,@PathVariable long idEstudiante) {
+        public ResponseEntity<MessageDTO> getQuestionByExamIdAndIdStudent(@PathVariable long idExamen,
+                        @PathVariable long idEstudiante) {
                 return ResponseEntity.status(HttpStatus.OK)
-                                .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findPreguntasAsignadasByIdExamenAndIdEstudiante(idExamen, idEstudiante)));
+                                .body(new MessageDTO(HttpStatus.OK, false,
+                                                preguntasRepo.findPreguntasAsignadasByIdExamenAndIdEstudiante(idExamen,
+                                                                idEstudiante)));
         }
 
         @GetMapping("/tema/{idTema}")
         public ResponseEntity<MessageDTO> getQuestionByIdTopic(@PathVariable long idTema) {
                 return ResponseEntity.status(HttpStatus.OK)
-                                .body(new MessageDTO(HttpStatus.OK, false, preguntasRepo.findPreguntasByIdEstadoAndIdTema(idTema)));
-        }       
+                                .body(new MessageDTO(HttpStatus.OK, false,
+                                                preguntasRepo.findPreguntasByIdEstadoAndIdTema(idTema)));
+        }
+
+        @GetMapping("/{idQuestion}")
+        public ResponseEntity<MessageDTO> getQuestionById(@PathVariable long idQuestion) {
+                Pregunta pregunta = preguntasRepo.findById(idQuestion).get();
+                PreguntasDTO preguntaDTO = new PreguntasDTO();
+                preguntaDTO.setEnunciado(pregunta.getEnunciado());
+                preguntaDTO.setId(pregunta.getId());
+                preguntaDTO.setIdEstado(pregunta.getIdestado().getId());
+                preguntaDTO.setIdTema(pregunta.getIdtema().getId());
+                preguntaDTO.setPeso(pregunta.getPeso());
+                preguntaDTO.setIdTipoPregunta(pregunta.getIdtipopregunta().getId());
+
+                List<Respuesta> respuestas = respuestasRepo.findRespuestasByIdPregunta(pregunta.getId());
+
+                List<RespuestasDTO> respuestasDTOs = new ArrayList<>();
+
+                for (Respuesta respuesta : respuestas) {
+                    RespuestasDTO respuestaDTO = new RespuestasDTO();
+                    respuestaDTO.setCorrecta(respuesta.getCorrecta());
+                    respuestaDTO.setId(respuesta.getId());
+                    respuestaDTO.setIdPregunta(respuesta.getIdpreguntas().getId());
+                    respuestaDTO.setOpcionrespuesta(respuesta.getOpcionrespuesta());
+                    respuestasDTOs.add(respuestaDTO);
+                }
+                preguntaDTO.setRespuestas(respuestasDTOs);               
+
+                return ResponseEntity.status(HttpStatus.OK)
+                                .body(new MessageDTO(HttpStatus.OK, false, preguntaDTO ));
+        }
 
         @PostMapping("/")
         public ResponseEntity<MessageDTO> createQuestion(@RequestBody PreguntasDTO preguntasDTO) {

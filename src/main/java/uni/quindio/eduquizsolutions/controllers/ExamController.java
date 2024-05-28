@@ -265,9 +265,19 @@ public class ExamController {
     }
 
     @GetMapping("/curso/{idCourse}")
-    public ResponseEntity<MessageDTO> getExamByIdCourse(@PathVariable long idCourse) {
+    public ResponseEntity<MessageDTO> getAsignacionesPreguntasWithPreguntasAndRespuestasByIdAsignacionEstudiante(@PathVariable long idCourse) {
 
         List<Examen> examenes = examenesRepo.findExamByIdCourse(idCourse);
+        List<ExamenesDTO> examenesDTOs = listaExamenesADTO(examenes);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new MessageDTO(HttpStatus.OK, false, examenesDTOs));
+    }
+
+    @GetMapping("/curso/publico/{idCourse}")
+    public ResponseEntity<MessageDTO> getExamPublicByIdCourse(@PathVariable long idCourse) {
+
+        List<Examen> examenes = examenesRepo.findExamPublicByIdCourse(idCourse);
         List<ExamenesDTO> examenesDTOs = listaExamenesADTO(examenes);
 
         return ResponseEntity.status(HttpStatus.OK)

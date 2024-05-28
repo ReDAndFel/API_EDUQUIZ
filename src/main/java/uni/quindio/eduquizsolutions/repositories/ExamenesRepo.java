@@ -9,18 +9,22 @@ import org.springframework.data.jpa.repository.Query;
 import uni.quindio.eduquizsolutions.DTOS.ExamenesDTO;
 import uni.quindio.eduquizsolutions.entities.Examen;
 import org.springframework.stereotype.Repository;
+
 @Repository
-public interface ExamenesRepo extends JpaRepository<Examen, Long > {
+public interface ExamenesRepo extends JpaRepository<Examen, Long> {
 
-    @Query("SELECT e FROM Examen e "
-            + "JOIN AsignacionesEstudiante ae ON ae.idexamenes = e "
-            + "JOIN ae.idestudiante es "
-            + "WHERE es.id = :idEstudiante")
-    List<Examen> findExamByIdStudent(Long idEstudiante);
+        @Query("SELECT e FROM Examen e "
+                        + "JOIN AsignacionesEstudiante ae ON ae.idexamenes = e "
+                        + "JOIN ae.idestudiante es "
+                        + "WHERE es.id = :idEstudiante")
+        List<Examen> findExamByIdStudent(Long idEstudiante);
 
-    
-    @Query("SELECT e FROM Examen e "
-            + "WHERE e.idcurso.id = :idCourse")
-    List<Examen> findExamByIdCourse(Long idCourse);
+        @Query("SELECT e FROM Examen e "
+                        + "WHERE e.idcurso.id = :idCourse")
+        List<Examen> findExamByIdCourse(Long idCourse);
+
+        @Query("SELECT e FROM Examen e "
+                        + "WHERE e.idcurso.id = :idCourse and e.estado = 'Publicado'")
+        List<Examen> findExamPublicByIdCourse(Long idCourse);
 
 }

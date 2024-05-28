@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class AsignacionesPreguntasDTO {
     private Long id;
-    private Long idEstudiante;
-    private Long idPregunta;
+    private Long idAsignacionEstudiante;
+    private Long idBanco;
+    private Long idPreguntaBanco;
 }

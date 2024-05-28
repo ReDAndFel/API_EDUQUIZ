@@ -6,9 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RespuestasEstudiantesDTO {
-    private Long id;
-    private Long idEstudiante;
-    private Long idExamenes;
-    private Long idPreguntas;
+    private Long idRespuestaEstudiante;
+    private String respuesta;
+    private Long idAsignacionPregunta;
     private Long idRespuesta;
 }
